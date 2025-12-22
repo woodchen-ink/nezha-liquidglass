@@ -15,7 +15,12 @@ import NotFound from "./pages/NotFound"
 import Server from "./pages/Server"
 import ServerDetail from "./pages/ServerDetail"
 
-const App: React.FC = () => {
+// Route checker component
+const RouteChecker: React.FC = () => {
+  return <MainApp />
+}
+
+const MainApp: React.FC = () => {
   const { data: settingData, error } = useQuery({
     queryKey: ["setting"],
     queryFn: () => fetchSetting(),
