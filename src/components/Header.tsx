@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
+import { SearchButton } from "./SearchButton"
 import { Loader, LoadingSpinner } from "./loading/Loader"
 import { Button } from "./ui/button"
 
@@ -99,6 +100,7 @@ function Header() {
             <Links />
             <DashboardLink />
           </div>
+          <SearchButton />
           {(customBackgroundImage || sessionStorage.getItem("savedBackgroundImage")) && (
             <Button
               variant="outline"
