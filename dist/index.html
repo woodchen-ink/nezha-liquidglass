@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <script>
+      // 在页面渲染前就执行主题初始化
+      document.documentElement.classList.add("light")
+      
+      // 全局配置变量
+      window.ShowServerDetails = true; // 是否显示服务器详细信息
+    </script>
+    <style>
+      /* Prevent FOUC in Safari */
+      html:not(.light) * {
+        visibility: hidden;
+      }
+
+      :root {
+        color-scheme: light;
+        --bg: #F8F7F6;
+      }
+
+      html.light {
+        color-scheme: light;
+        --bg: #F8F7F6;
+      }
+
+      html {
+        background: transparent !important;
+      }
+
+      body {
+        background: transparent !important;
+      }
+
+      #root {
+        background: transparent !important;
+        visibility: hidden;
+      }
+
+      #root.loaded {
+        visibility: visible;
+        animation: fadein 0.2s;
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script>
+      ;(function () {
+        const root = document.documentElement
+        root.classList.remove("dark")
+        root.classList.add("light")
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#F8F7F6")
+
+        // Add loaded class after React has mounted
+        window.addEventListener("load", () => {
+          const root = document.getElementById("root")
+          if (root) {
+            // 使用 RAF 确保在下一帧渲染
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                root.classList.add("loaded")
+              })
+            })
+          }
+        })
+      })()
+    </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CZL Server</title>
+
+    <link rel="stylesheet" href="https://i.czl.net/jsdelivr/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+    <link rel="stylesheet" href="https://i.czl.net/jsdelivr/npm/font-logos@1/assets/font-logos.css" />
+    <script type="module" crossorigin src="/assets/index.DiF6z4Wf.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/cookie.Cpj98o6Y.js">
+    <link rel="modulepreload" crossorigin href="/assets/react.jMQnSm3a.js">
+    <link rel="modulepreload" crossorigin href="/assets/@tanstack.DLr5nhCS.js">
+    <link rel="modulepreload" crossorigin href="/assets/scheduler.C323NY8X.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-dom.C9Y5ka6O.js">
+    <link rel="modulepreload" crossorigin href="/assets/sonner.COb7oVJr.js">
+    <link rel="modulepreload" crossorigin href="/assets/clsx.B-dksMZM.js">
+    <link rel="modulepreload" crossorigin href="/assets/dayjs.BIRPHlKX.js">
+    <link rel="modulepreload" crossorigin href="/assets/tailwind-merge.D696Ktp4.js">
+    <link rel="modulepreload" crossorigin href="/assets/tslib.CDuPK5Eb.js">
+    <link rel="modulepreload" crossorigin href="/assets/get-nonce.C-Z93AgS.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-style-singleton.DFgW_T1a.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-remove-scroll-bar.DdeGFsrn.js">
+    <link rel="modulepreload" crossorigin href="/assets/use-sidecar.CdomOhgg.js">
+    <link rel="modulepreload" crossorigin href="/assets/use-callback-ref.BL9VWzOX.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-remove-scroll.901B5xSz.js">
+    <link rel="modulepreload" crossorigin href="/assets/aria-hidden.DvXkyWUv.js">
+    <link rel="modulepreload" crossorigin href="/assets/@floating-ui.vd4N-Cqc.js">
+    <link rel="modulepreload" crossorigin href="/assets/@radix-ui.Dvpnyu_e.js">
+    <link rel="modulepreload" crossorigin href="/assets/lucide-react.Ci58Du_B.js">
+    <link rel="modulepreload" crossorigin href="/assets/cmdk.DNEBjo6F.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-router.C9gQCRii.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-i18next.BYTu-BcG.js">
+    <link rel="modulepreload" crossorigin href="/assets/class-variance-authority.CUqo0Wgp.js">
+    <link rel="modulepreload" crossorigin href="/assets/@heroicons.TsFrr0tP.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-motion._Pd4ygpL.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-array.D58Sek1Z.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-geo.DfzRI0Vw.js">
+    <link rel="modulepreload" crossorigin href="/assets/country-flag-icons.D4lwPBzr.js">
+    <link rel="modulepreload" crossorigin href="/assets/lodash.B7iM26tb.js">
+    <link rel="modulepreload" crossorigin href="/assets/tiny-invariant.BaFNuDhB.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-is.BpBQ4hf7.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-path.CimkQT29.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-shape.BzTdDXm-.js">
+    <link rel="modulepreload" crossorigin href="/assets/prop-types.DGFq0c4d.js">
+    <link rel="modulepreload" crossorigin href="/assets/fast-equals.Dh4i1-J3.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-smooth.Dgq1ylZd.js">
+    <link rel="modulepreload" crossorigin href="/assets/internmap.BkD7Hj8s.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-time.D3vfyj6H.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-time-format.DcBaTboK.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-color.9lF95FHy.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-interpolate.B3PSBtlY.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-format.CzD4bSOQ.js">
+    <link rel="modulepreload" crossorigin href="/assets/d3-scale.B-kmDnyi.js">
+    <link rel="modulepreload" crossorigin href="/assets/victory-vendor.B8cZCsSC.js">
+    <link rel="modulepreload" crossorigin href="/assets/decimal.js-light.ZKFLnszB.js">
+    <link rel="modulepreload" crossorigin href="/assets/recharts-scale.DvxaJYSb.js">
+    <link rel="modulepreload" crossorigin href="/assets/eventemitter3.DyoE1r1G.js">
+    <link rel="modulepreload" crossorigin href="/assets/recharts.DIyX7Ni3.js">
+    <link rel="modulepreload" crossorigin href="/assets/diacritics.BVTyVR-8.js">
+    <link rel="modulepreload" crossorigin href="/assets/i18n-iso-countries.BfPIhJNU.js">
+    <link rel="modulepreload" crossorigin href="/assets/i18next.C77IuWVK.js">
+    <link rel="stylesheet" crossorigin href="/assets/index.DA-zrmlQ.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
