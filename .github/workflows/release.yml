@@ -61,7 +61,7 @@ jobs:
           git push
 
       - name: Create dist.zip
-        run: cd dist && zip -r ../dist.zip . && cd ..
+        run: zip -r dist.zip dist
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
