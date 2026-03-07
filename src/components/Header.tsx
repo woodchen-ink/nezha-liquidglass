@@ -152,7 +152,7 @@ function Header() {
 				<section className="flex items-center gap-2 header-handles">
 					<div className="hidden sm:flex items-center gap-2">
 						<Links />
-						<DashboardLink />
+						<DashboardLink customBackgroundImage={customBackgroundImage} />
 					</div>
 					<SearchButton />
 					<LanguageSwitcher />
@@ -194,7 +194,7 @@ function Header() {
 				</section>
 			</section>
 			<div className="w-full flex justify-between sm:hidden mt-1">
-				<DashboardLink />
+				<DashboardLink customBackgroundImage={customBackgroundImage} />
 				<Links />
 			</div>
 			<Overview />
@@ -269,7 +269,11 @@ export function RefreshToast() {
 	);
 }
 
-function DashboardLink() {
+function DashboardLink({
+	customBackgroundImage,
+}: {
+	customBackgroundImage?: string;
+}) {
 	const { t } = useTranslation();
 	const { setNeedReconnect } = useWebSocketContext();
 	const previousLoginState = useRef<boolean | null>(null);
@@ -317,16 +321,19 @@ function DashboardLink() {
 	}, [isLogin, isError, isFetched, setNeedReconnect]);
 
 	return (
-		<div className="flex items-center gap-2">
-			<a
-				href={"/dashboard"}
-				rel="noopener noreferrer"
-				className="flex items-center text-nowrap gap-1 text-sm font-medium opacity-50 transition-opacity hover:opacity-100"
-			>
+		<Button
+			asChild
+			variant="outline"
+			size="sm"
+			className={cn("glass-panel rounded-full flex items-center px-[9px]", {
+				"backdrop-blur-xl": customBackgroundImage,
+			})}
+		>
+			<a href="/dashboard" rel="noopener noreferrer" className="text-nowrap">
 				{!isLogin && t("login")}
 				{isLogin && t("dashboard")}
 			</a>
-		</div>
+		</Button>
 	);
 }
 

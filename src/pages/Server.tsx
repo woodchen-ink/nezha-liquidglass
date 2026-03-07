@@ -463,7 +463,7 @@ export default function Servers() {
 			{inline === "0" && (
 				<section
 					ref={containerRef}
-					className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-6 server-card-list"
+					className="grid grid-cols-1 gap-2 mt-6 server-card-list"
 				>
 					{filteredServers.map((serverInfo) => (
 						<ServerCard
