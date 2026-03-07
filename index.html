@@ -3,14 +3,20 @@
   <head>
     <script>
       // 在页面渲染前就执行主题初始化
-      document.documentElement.classList.add("light")
-      
-      // 全局配置变量
-      window.ShowServerDetails = true; // 是否显示服务器详细信息
+      try {
+        const storageKey = "vite-ui-theme"
+        let theme = localStorage.getItem(storageKey)
+        if (theme === "system" || !theme) {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        }
+        document.documentElement.classList.add(theme)
+      } catch (_e) {
+        document.documentElement.classList.add("light")
+      }
     </script>
     <style>
       /* Prevent FOUC in Safari */
-      html:not(.light) * {
+      html:not(.light):not(.dark) * {
         visibility: hidden;
       }
 
@@ -22,6 +28,11 @@
       html.light {
         color-scheme: light;
         --bg: #F8F7F6;
+      }
+
+      html.dark {
+        color-scheme: dark;
+        --bg: #141414;
       }
 
       html {
@@ -52,10 +63,14 @@
       }
     </style>
     <script>
-      ;(function () {
+      ;(() => {
+        const storageKey = "vite-ui-theme"
+        const theme = localStorage.getItem(storageKey) || "system"
         const root = document.documentElement
-        root.classList.remove("dark")
-        root.classList.add("light")
+        if (theme === "system" || theme === "light") {
+          root.classList.remove("dark")
+          root.classList.add("light")
+        }
         document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#F8F7F6")
 
         // Add loaded class after React has mounted
