@@ -2,16 +2,24 @@ name: Create Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+    paths-ignore:
+      - 'dist/**'
+      - '*.md'
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
-    
+
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -23,23 +31,44 @@ jobs:
 
       - name: Build project
         run: npm run build
-        
-      - name: Create zip archive
+
+      - name: Get version from package.json
+        id: version
+        run: echo "VERSION=v$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Bump patch version
+        id: bump
         run: |
-          cd dist
-          zip -r ../nezha-dash-v1.zip .
-          cd ..
-          
-      - name: Extract tag name
-        id: get_tag
-        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-      
+          CURRENT=$(node -p "require('./package.json').version")
+          # Split version
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "NEW_VERSION=v$NEW_VERSION" >> $GITHUB_OUTPUT
+          # Update package.json
+          node -e "
+            const pkg = require('./package.json');
+            pkg.version = '$NEW_VERSION';
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, '\t') + '\n');
+          "
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "chore: bump version to ${{ steps.bump.outputs.NEW_VERSION }} [skip ci]"
+          git push
+
+      - name: Create dist.zip
+        run: cd dist && zip -r ../dist.zip . && cd ..
+
       - name: Create Release
-        id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          files: nezha-dash-v1.zip
-          name: Release ${{ env.TAG_NAME }}
+          tag_name: ${{ steps.bump.outputs.NEW_VERSION }}
+          name: Release ${{ steps.bump.outputs.NEW_VERSION }}
+          files: dist.zip
           draft: false
           prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.GITHUB_TOKEN }}
