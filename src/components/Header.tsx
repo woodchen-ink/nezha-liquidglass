@@ -124,7 +124,9 @@ function Header() {
 						sessionStorage.removeItem("selectedGroup");
 						navigate("/");
 					}}
-					className="cursor-pointer flex items-center sm:text-base text-sm font-medium"
+					className={cn("cursor-pointer flex items-center sm:text-base text-sm font-medium", {
+						"text-bg-contrast": customBackgroundImage,
+					})}
 				>
 					<div className="mr-1 flex flex-row items-center justify-start header-logo">
 						<img
@@ -333,13 +335,16 @@ function Overview() {
 	const { t } = useTranslation();
 	const time = useCurrentTime();
 	const [mounted, setMounted] = useState(false);
+	const { backgroundImage } = useBackground();
 
 	useEffect(() => {
 		setMounted(true);
 	}, []);
 
 	return (
-		<section className={"mt-10 flex flex-col md:mt-16 header-timer"}>
+		<section className={cn("mt-10 flex flex-col md:mt-16 header-timer", {
+			"text-bg-contrast": backgroundImage,
+		})}>
 			<p className="text-base font-semibold">👋 {t("overview")}</p>
 			<div className="flex items-center gap-1">
 				<p className="text-sm font-medium opacity-50">{t("whereTheTimeIs")}</p>

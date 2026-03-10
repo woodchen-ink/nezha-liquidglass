@@ -33,7 +33,7 @@ import { SORT_ORDERS, SORT_TYPES } from "@/context/sort-context";
 import { useSort } from "@/hooks/use-sort";
 import { useStatus } from "@/hooks/use-status";
 import { useWebSocketContext } from "@/hooks/use-websocket-context";
-import { fetchServerGroup } from "@/lib/nezha-api";
+import { fetchServerGroup, fetchService } from "@/lib/nezha-api";
 import { cn, formatNezhaInfo } from "@/lib/utils";
 import type { NezhaWebsocketResponse, ServerGroup } from "@/types/nezha-api";
 
@@ -44,6 +44,14 @@ export default function Servers() {
 		queryKey: ["server-group"],
 		queryFn: () => fetchServerGroup(),
 	});
+	const { data: serviceData } = useQuery({
+		queryKey: ["service"],
+		queryFn: () => fetchService(),
+		refetchOnMount: true,
+		refetchOnWindowFocus: true,
+		refetchInterval: 10000,
+	});
+	const cycleTransferStats = serviceData?.data?.cycle_transfer_stats;
 	const { lastMessage, connected } = useWebSocketContext();
 	const { status } = useStatus();
 	const [showServices, setShowServices] = useState<string>("0");
@@ -465,13 +473,22 @@ export default function Servers() {
 					ref={containerRef}
 					className="grid grid-cols-1 gap-2 mt-6 server-card-list"
 				>
-					{filteredServers.map((serverInfo) => (
-						<ServerCard
-							now={nezhaWsData.now}
-							key={serverInfo.id}
-							serverInfo={serverInfo}
-						/>
-					))}
+					{filteredServers.map((serverInfo) => {
+						const serverGroup = groupData?.data?.find(
+							(g: ServerGroup) =>
+								Array.isArray(g.servers) &&
+								g.servers.includes(serverInfo.id),
+						);
+						return (
+							<ServerCard
+								now={nezhaWsData.now}
+								key={serverInfo.id}
+								serverInfo={serverInfo}
+								cycleStats={cycleTransferStats}
+								groupName={serverGroup?.group.name}
+							/>
+						);
+					})}
 				</section>
 			)}
 		</div>
