@@ -124,9 +124,8 @@ function Header() {
 						sessionStorage.removeItem("selectedGroup");
 						navigate("/");
 					}}
-					className={cn("cursor-pointer flex items-center sm:text-base text-sm font-medium", {
-						"text-bg-contrast": customBackgroundImage,
-					})}
+					className="cursor-pointer flex items-center sm:text-base text-sm font-medium"
+					style={customBackgroundImage ? { color: "white", textShadow: "0 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.2)" } : undefined}
 				>
 					<div className="mr-1 flex flex-row items-center justify-start header-logo">
 						<img
@@ -342,9 +341,10 @@ function Overview() {
 	}, []);
 
 	return (
-		<section className={cn("mt-10 flex flex-col md:mt-16 header-timer", {
-			"text-bg-contrast": backgroundImage,
-		})}>
+		<section
+			className="mt-10 flex flex-col md:mt-16 header-timer"
+			style={backgroundImage ? { color: "white", textShadow: "0 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.2)" } : undefined}
+		>
 			<p className="text-base font-semibold">👋 {t("overview")}</p>
 			<div className="flex items-center gap-1">
 				<p className="text-sm font-medium opacity-50">{t("whereTheTimeIs")}</p>

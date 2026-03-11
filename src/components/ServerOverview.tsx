@@ -30,12 +30,6 @@ export default function ServerOverview({
 	const { t } = useTranslation();
 	const { status, setStatus } = useStatus();
 
-	// @ts-expect-error DisableAnimatedMan is a global variable
-	const disableAnimatedMan = window.DisableAnimatedMan as boolean;
-
-	// @ts-expect-error CustomIllustration is a global variable
-	const customIllustration = window.CustomIllustration || "/animated-man.webp";
-
 	const customBackgroundImage =
 		(window.CustomBackgroundImage as string) !== ""
 			? window.CustomBackgroundImage
@@ -158,14 +152,6 @@ export default function ServerOverview({
 							</p>
 						</section>
 					</section>
-					{!disableAnimatedMan && (
-						<img
-							className="absolute right-3 top-[-85px] z-50 w-20 scale-90 group-hover:opacity-50 md:scale-100 transition-all"
-							alt={"animated-man"}
-							src={customIllustration}
-							loading="eager"
-						/>
-					)}
 				</CardContent>
 			</Card>
 		</section>

@@ -496,10 +496,3 @@
 .pulse-animation {
 	animation: pulse-glow 2s ease-in-out infinite;
 }
-
-/* 背景图片上的文字样式 - 白色字+阴影提高可读性 */
-.text-bg-contrast,
-.text-bg-contrast * {
-	color: white !important;
-	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 0, 0, 0.2);
-}
