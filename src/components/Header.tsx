@@ -125,7 +125,7 @@ function Header() {
 						navigate("/");
 					}}
 					className="cursor-pointer flex items-center sm:text-base text-sm font-medium"
-					style={customBackgroundImage ? { color: "white", textShadow: "0 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.2)" } : undefined}
+					style={{ color: "white", textShadow: "0 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.2)" }}
 				>
 					<div className="mr-1 flex flex-row items-center justify-start header-logo">
 						<img
@@ -334,7 +334,6 @@ function Overview() {
 	const { t } = useTranslation();
 	const time = useCurrentTime();
 	const [mounted, setMounted] = useState(false);
-	const { backgroundImage } = useBackground();
 
 	useEffect(() => {
 		setMounted(true);
@@ -343,7 +342,7 @@ function Overview() {
 	return (
 		<section
 			className="mt-10 flex flex-col md:mt-16 header-timer"
-			style={backgroundImage ? { color: "white", textShadow: "0 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.2)" } : undefined}
+			style={{ color: "white", textShadow: "0 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.2)" }}
 		>
 			<p className="text-base font-semibold">👋 {t("overview")}</p>
 			<div className="flex items-center gap-1">
